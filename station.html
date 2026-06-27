@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Station — Railmap</title>
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/station.css">
+</head>
+<body>
+
+  <header class="station-topbar">
+    <a href="index.html" class="brand-float station-brand" aria-label="Open map page">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <rect x="7" y="1" width="6" height="14" rx="3" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M4 15l2-2h8l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="7" y1="6" x2="13" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="3" y1="18" x2="7" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="17" y1="18" x2="13" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span>Railmap</span>
+    </a>
+    <div class="search-float station-search-float">
+      <div class="search-wrap" id="search-wrap">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="11" y1="11" x2="14" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <input type="text" placeholder="Search stations, cities…" autocomplete="off" spellcheck="false" aria-label="Search train stations">
+        <div class="search-results" id="search-results" role="listbox"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="station-page">
+    <section class="station-hero">
+      <div class="hero-main">
+        <div class="hero-name-block">
+          <h1 class="station-name">Station</h1>
+        </div>
+        <div class="hero-divider" aria-hidden="true"></div>
+        <div class="hero-info">
+          <div class="info-row hero-place-row">
+            <span class="info-value hero-place">Loading...</span>
+          </div>
+          <div class="info-row hero-time-row">
+            <span class="info-value hero-time" id="local-time" data-timezone="UTC">
+              <span class="time-hm">--:--</span>
+              <span class="time-diff"></span>
+            </span>
+          </div>
+          <div class="info-row hero-operators-row">
+            <div class="operators-row"></div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-tabs" role="tablist">
+        <button class="tab-btn active" data-tab="overview" role="tab" aria-selected="true">Overview</button>
+        <button class="tab-btn" data-tab="departures" role="tab" aria-selected="false">Departures</button>
+      </div>
+    </section>
+
+    <div class="tab-content">
+      <div class="tab-panel active" data-tab="overview" role="tabpanel"></div>
+
+      <div class="tab-panel" data-tab="departures" role="tabpanel">
+        <div class="departures-table-wrap">
+          <table class="departures-table" aria-label="Upcoming departures">
+            <thead>
+              <tr>
+                <th class="col-time">Departure</th>
+                <th class="col-train">Train</th>
+                <th class="col-destination">Destination</th>
+                <th class="col-operator">Operator</th>
+                <th class="col-platform">Platform</th>
+              </tr>
+            </thead>
+            <tbody id="departures-body">
+              <tr class="empty-row">
+                <td colspan="5">
+                  <div class="empty-state">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                      <rect x="10" y="4" width="12" height="20" rx="4" stroke="currentColor" stroke-width="1.5"/>
+                      <path d="M8 24l4-4h8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                      <line x1="10" y1="11" x2="22" y2="11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                    <div>Loading departures...</div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    window.RAILMAP_SBB_TOKEN = 'eyJvcmciOiI2NDA2NTFhNTIyZmEwNTAwMDEyOWJiZTEiLCJpZCI6ImQzNWQ3Y2VkOGIwMjQ4MGM5ZDY0NzI1MWZmZWE0MzNjIiwiaCI6Im11cm11cjEyOCJ9';
+    window.RAILMAP_DB_CLIENT_ID = 'ac1097ff786cbd6f21e311593931e622';
+    window.RAILMAP_DB_API_KEY   = '9e991429dd2a6f3e1b2b2b78f181714b';
+  </script>
+<script src="js/stations-data.js"></script>
+<script src="js/railmap-sbb.js"></script>
+<script src="js/railmap-sbb-bootstrap.js"></script>
+<script src="js/railmap-db.js"></script>
+<script src="js/railmap-db-bootstrap.js"></script>
+<script src="js/station.js"></script>
+</body>
+</html>

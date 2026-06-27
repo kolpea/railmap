@@ -1,0 +1,220 @@
+/* ─── Full-screen map ────────────────────────────────────────────── */
+#map {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+/* ─── Brand — floats top-left ────────────────────────────────────── */
+.brand-float {
+  position: fixed;
+  top: 28px;
+  left: 32px;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  pointer-events: none;
+  /* subtle backing so it reads on the map */
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 8px 14px;
+  border-radius: var(--radius-full);
+  border: 0.5px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.brand-float svg {
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+/* ─── Search — floats top-center ─────────────────────────────────── */
+.search-float {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 500;
+  width: min(360px, calc(100vw - 32px));
+}
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 0.5px solid var(--border-mid);
+  border-radius: var(--radius-full);
+  height: 48px;
+  padding: 0 16px;
+  gap: 10px;
+  box-shadow: var(--shadow-md);
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.search-wrap:focus-within {
+  border-color: var(--border-mid);
+  box-shadow: var(--shadow-md);
+}
+
+.search-icon {
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: color 0.15s;
+}
+
+.search-wrap input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-size: 15px;
+  font-family: var(--font);
+  font-weight: 400;
+}
+
+.search-wrap input::placeholder {
+  color: var(--text-muted);
+}
+
+/* ─── Search results dropdown ────────────────────────────────────── */
+.search-results {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: var(--bg-surface);
+  border: 0.5px solid var(--border-mid);
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  display: none;
+  z-index: 600;
+}
+
+.search-results.open {
+  display: block;
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 16px;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.search-result-item:not(:last-child) {
+  border-bottom: 0.5px solid var(--border);
+}
+
+.search-result-item:hover {
+  background: var(--bg-hover);
+}
+
+.sr-flag {
+  font-size: 22px;
+  line-height: 1;
+  flex-shrink: 0;
+  width: 28px;
+  text-align: center;
+}
+
+.sr-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.sr-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sr-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ─── Tooltip ────────────────────────────────────────────────────── */
+.map-tooltip {
+  position: fixed;
+  pointer-events: none;
+  background: var(--bg-surface);
+  border: 0.5px solid var(--border-mid);
+  border-radius: var(--radius);
+  padding: 9px 13px;
+  font-size: 13px;
+  color: var(--text-primary);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.15s, transform 0.15s;
+  z-index: 700;
+  box-shadow: var(--shadow-md);
+}
+
+.map-tooltip.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.tooltip-name {
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.tooltip-meta {
+  color: var(--text-secondary);
+  font-size: 11px;
+  margin-top: 2px;
+}
+
+/* ─── Leaflet overrides ──────────────────────────────────────────── */
+.leaflet-container {
+  background: #e8e0d5;
+  font-family: var(--font) !important;
+}
+
+/* Hide the Leaflet zoom control we don't use */
+.leaflet-control-zoom {
+  display: none !important;
+}
+
+/* ─── Station markers ────────────────────────────────────────────── */
+.station-marker {
+  cursor: pointer;
+}
+
+.station-marker-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.25), 0 0 0 0 rgba(37,99,235,0);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.station-marker-inner:hover {
+  transform: scale(1.4);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3), 0 0 0 4px rgba(37,99,235,0.15);
+}
+
+.station-marker-inner.tier-major    { background: var(--node-major); }
+.station-marker-inner.tier-regional { background: var(--node-regional); }
+.station-marker-inner.tier-local    { background: var(--node-local); }
