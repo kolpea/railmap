@@ -6,6 +6,7 @@
     eurostar: 'eurostar.svg',
     iryo: 'iryo.svg',
     sncf: 'sncf.svg',
+    obb: 'snobbcf.svg',
     ouigo: 'ouigo.svg',
     'ouigo-es': 'ouigo.svg',
   };
@@ -14,7 +15,8 @@
     sbb: 'SBB',
     eurostar: 'Eurostar',
     iryo: 'iryo',
-        sncf: 'SNCF',
+    sncf: 'SNCF',
+    obb: 'ÖBB',
     ouigo: 'OUIGO',
     'ouigo-es': 'OUIGO España',
   };
